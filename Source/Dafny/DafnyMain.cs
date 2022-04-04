@@ -309,7 +309,7 @@ namespace Microsoft.Dafny {
           engine.CollectModSets(program);
           engine.CoalesceBlocks(program);
           engine.Inline(program);
-          return engine.InferAndVerify(Console.Out, program, stats, programId).Result;
+          return engine.InferAndVerify(Console.Out, program, stats, programId).Result; //PREVIOUS PROBLEM (FROM HERE DOWN, ITS ALL BOOGIE)
 
         default:
           Contract.Assert(false); throw new cce.UnreachableException();  // unexpected outcome

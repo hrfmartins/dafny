@@ -96,7 +96,7 @@ namespace Microsoft.Dafny {
     public bool Optimize = false;
     public bool AutoTriggers = true;
     public bool RewriteFocalPredicates = true;
-    public bool PrintTooltips = false;
+    public bool PrintTooltips = true;
     public bool PrintStats = false;
     public bool PrintFunctionCallGraph = false;
     public bool WarnShadowing = false;
@@ -132,7 +132,7 @@ namespace Microsoft.Dafny {
     public bool DisableScopes = false;
     public int Allocated = 3;
     public bool UseStdin = false;
-    public bool ShowSnippets = false;
+    public bool ShowSnippets = true;
     public bool WarningsAsErrors = false;
     [CanBeNull] private TestGenerationOptions testGenOptions = null;
     public bool ExtractCounterexample = false;
