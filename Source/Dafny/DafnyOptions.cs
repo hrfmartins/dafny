@@ -103,6 +103,8 @@ namespace Microsoft.Dafny {
     public int DefiniteAssignmentLevel = 1; // [0..4]
     public FunctionSyntaxOptions FunctionSyntax = FunctionSyntaxOptions.Version3;
 
+    public bool printState = true;
+
     public enum FunctionSyntaxOptions {
       Version3,
       Migration3To4,

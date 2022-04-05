@@ -1153,10 +1153,26 @@ namespace Microsoft.Boogie
       Contract.Requires(stats != null);
 
       UpdateStatistics(stats, outcome, errors);
-
+      
+      CalculateState(errors, tw, printer);
+      
       printer.Inform(timeIndication + OutcomeIndication(outcome, errors), tw);
 
       ReportOutcome(printer, outcome, er, implName, implTok, requestId, msgIfVerifies, tw, timeLimit, errors);
+    }
+
+    public void CalculateState(List<Counterexample> errors, TextWriter tw, OutputPrinter printer) {
+      // Used to write to terminal tw.WriteLine("HELLO USER");
+      
+      tw.WriteLine("Previous state calculation");
+
+      foreach (var var in errors[0].Trace) {
+        foreach (var cmd in var.cmds) {
+          
+          tw.Write(cmd);
+        }
+      }
+      
     }
 
     public void ReportOutcome(OutputPrinter printer,
