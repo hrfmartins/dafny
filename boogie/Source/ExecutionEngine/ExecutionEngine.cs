@@ -1163,16 +1163,25 @@ namespace Microsoft.Boogie
 
     public void CalculateState(List<Counterexample> errors, TextWriter tw, OutputPrinter printer) {
       // Used to write to terminal tw.WriteLine("HELLO USER");
-      
+
       tw.WriteLine("Previous state calculation");
 
       foreach (var var in errors[0].Trace) {
-        foreach (var cmd in var.cmds) {
-          
-          tw.Write(cmd);
+        for (int i = 0; i < var.cmds.Count; i++) {
+          var cmd = var.cmds[i];
+          tw.Write(cmd.GetType());
+          if (cmd.GetType() == typeof(AssertEnsuresCmd) || cmd.GetType() == typeof(AssertCmd)) {
+            tw.WriteLine(((AssertCmd) cmd).Expr);
+          } else {
+            // if (((AssumeCmd) cmd).Expr.Type)
+            var a = ((NAryExpr) ((((AssumeCmd) cmd).Expr))).Args;
+
+            if (a[0].GetType() == typeof(NAryExpr)) {
+              tw.WriteLine(a);
+            }
+          }
         }
       }
-      
     }
 
     public void ReportOutcome(OutputPrinter printer,
