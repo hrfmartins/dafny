@@ -127,7 +127,7 @@ public class ConsolePrinter : OutputPrinter
     Contract.Requires(errorInfo != null);
 
     ReportBplError(errorInfo.Tok, errorInfo.FullMsg, true, tw);
-
+    
     foreach (var e in errorInfo.Aux)
     {
       if (!(skipExecutionTrace && e.Category != null && e.Category.Contains("Execution trace")))

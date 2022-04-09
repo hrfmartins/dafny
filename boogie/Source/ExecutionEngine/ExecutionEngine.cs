@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -1165,23 +1166,37 @@ namespace Microsoft.Boogie
       // Used to write to terminal tw.WriteLine("HELLO USER");
 
       tw.WriteLine("Previous state calculation");
-
+      var state = new List<Tuple<IList<Expr>, IAppliable>>();
+      
       foreach (var var in errors[0].Trace) {
         for (int i = 0; i < var.cmds.Count; i++) {
           var cmd = var.cmds[i];
           tw.Write(cmd.GetType());
+          
           if (cmd.GetType() == typeof(AssertEnsuresCmd) || cmd.GetType() == typeof(AssertCmd)) {
             tw.WriteLine(((AssertCmd) cmd).Expr);
           } else {
             // if (((AssumeCmd) cmd).Expr.Type)
-            var a = ((NAryExpr) ((((AssumeCmd) cmd).Expr))).Args;
+            if ((((AssumeCmd) cmd).Expr).GetType() != typeof(LiteralExpr))
+            {
+              var args = ((NAryExpr) ((((AssumeCmd) cmd).Expr))).Args;
+              var b = ((NAryExpr) (((AssumeCmd) cmd).Expr)).Fun;
 
-            if (a[0].GetType() == typeof(NAryExpr)) {
-              tw.WriteLine(a);
+              if (args[0].GetType() == typeof(IdentifierExpr)) {
+                //state.Add(new Tuple<NAryExpr, NAryExpr>(a[0], a[1]));
+                state.Add(new Tuple<IList<Expr>, IAppliable>(args, b));
+              }
+              
             }
           }
         }
       }
+
+      foreach (var st in state) {
+        tw.Write(st.Item1);
+        tw.Write(", ");
+      }
+      tw.WriteLine("\n");                                                                                  
     }
 
     public void ReportOutcome(OutputPrinter printer,
