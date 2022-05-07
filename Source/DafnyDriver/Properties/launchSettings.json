@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DafnyDriver": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../Dafny-Examples/0.dfy\""
+    }
+  }
+}
