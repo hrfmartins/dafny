@@ -2,7 +2,7 @@
   "profiles": {
     "DafnyDriver": {
       "commandName": "Project",
-      "commandLineArgs": "\"../../1.dfy\""
+      "commandLineArgs": "\"../Dafny-Examples/0.dfy\""
     }
   }
 }
