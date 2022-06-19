@@ -1023,71 +1023,12 @@ namespace Microsoft.Boogie {
 
       UpdateStatistics(stats, outcome, errors);
 
-      CalculateState(errors, tw, printer);
+      string t = new TranslationFactory().GetTranslation("suslik").Translate(errors, "sum");
+      tw.WriteLine(t);
 
       printer.Inform(timeIndication + OutcomeIndication(outcome, errors), tw);
 
       ReportOutcome(printer, outcome, er, implName, implTok, requestId, msgIfVerifies, tw, timeLimit, errors);
-    }
-
-    public void CalculateState(List<Counterexample> errors, TextWriter tw, OutputPrinter printer) {
-      // Used to write to terminal tw.WriteLine("HELLO USER");
-      tw.WriteLine("===============================");
-      var state = new List<Expr>();
-
-      foreach (var var in errors[0].Trace) {
-        for (int i = 0; i < var.cmds.Count; i++) {
-          var cmd = var.cmds[i];
-
-          if (cmd.GetType() == typeof(AssertEnsuresCmd) || cmd.GetType() == typeof(AssertCmd)) {
-          } else {
-            // if (((AssumeCmd) cmd).Expr.Type)
-            if ((((AssumeCmd)cmd).Expr).GetType() != typeof(LiteralExpr)) {
-              var args = ((NAryExpr)((((AssumeCmd)cmd).Expr))).Args;
-              var b = ((NAryExpr)(((AssumeCmd)cmd).Expr)).Fun;
-              if (args[0].GetType() == typeof(IdentifierExpr)) {
-                //state.Add(new Tuple<NAryExpr, NAryExpr>(a[0], a[1]));
-                if (((IdentifierExpr)args[0]).Name != "$_Frame@0") {
-                  state.Add(((AssumeCmd)cmd).Expr);
-                }
-              }
-            }
-          }
-        }
-      }
-
-
-
-
-      tw.WriteLine("Previous state calculation");
-
-      for (var i = 0; i < state.Count; i++) {
-        tw.WriteLine("state " + i + " " + mapAndPrint(state[i], tw));
-      }
-
-      tw.WriteLine("======================================");
-    }
-
-    public string mapAndPrint(Expr hel, TextWriter tw) {
-      if (hel.GetType() == typeof(LiteralExpr)) {
-        return (((LiteralExpr)hel).ToString());
-      } else if (hel.GetType() == typeof(IdentifierExpr)) {
-        return (((IdentifierExpr)hel).Name);
-      } else if (hel.GetType() == typeof(NAryExpr)) {
-        if (((NAryExpr)hel).Args.Count == 2) {
-          return mapAndPrint(((NAryExpr)hel).Args[0], tw) + ((NAryExpr)hel).Fun.FunctionName + mapAndPrint(((NAryExpr)hel).Args[1], tw);
-        } else if (((NAryExpr)hel).Args.Count == 1) {
-          return mapAndPrint(((NAryExpr)hel).Args[0], tw);
-        }
-
-      }
-
-      return "";
-    }
-
-    public string ExpPrint(Expr hel, TextWriter tw) {
-
-      return "";
     }
 
     public void ReportOutcome(OutputPrinter printer,

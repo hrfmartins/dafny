@@ -1,8 +1,20 @@
 {
   "profiles": {
-    "DafnyDriver": {
+    "DafnyDriver-1.dfy": {
       "commandName": "Project",
-      "commandLineArgs": "\"../Dafny-Examples/0.dfy\""
+      "commandLineArgs": "\"../Dafny-Examples/1.dfy\""
+    },
+    "DafnyDriver-2.dfy": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../Dafny-Examples/2.dfy\""
+    },
+    "DafnyDriver-3.dfy": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../Dafny-Examples/3.dfy\""
+    },
+    "DafnyDriver-4.dfy": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../Dafny-Examples/4.dfy\""
     }
   }
 }
