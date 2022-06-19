@@ -1,0 +1,4 @@
+void sum (loc i, loc sum)
+        { i:-> 0 ** sum :-> i+2} {i :-> 0 ** sum :-> i+1}
+{??}
+
